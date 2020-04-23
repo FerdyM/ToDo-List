@@ -11,7 +11,11 @@ class ToDoList extends Component {
         super(props)
         this.state = {
             addItemCardTriggered: false,
+            items: [
+
+            ]
         }
+        this.addItem = this.addItem.bind(this)
     }
 
     activateAddItemCard = () => {
@@ -25,13 +29,27 @@ class ToDoList extends Component {
             addItemCardTriggered: false,
         })
     }
+
+    addItem(item) {
+        if (item.name !== '' && item.task !== '') {
+            let items = this.state.items
+            console.log(items)
+            items.push(item)
+            console.log(items)
+            this.setState({
+                items: items,
+            })
+        }
+        this.deActivateAddItemCard()
+    }
+
     render() {
         return (
             <>
             
             {this.state.addItemCardTriggered ? (
                 <>
-                    <AddItemCard />
+                    <AddItemCard addItem={this.addItem}/>
                     <div className="add-button">
                     <Fab color="primary" aria-label="add" onClick={() => this.deActivateAddItemCard()}>
                         
@@ -47,9 +65,8 @@ class ToDoList extends Component {
                         <AddIcon />
                     </Fab>
                     </div>
-                    <ToDoItem name="example to do item" task="example task" />
-                    <ToDoItem name="example number two" task="example task" />
-                    <ToDoItem name="Do the laundry" task="Make sure to do all of laundry and put it on the line after" />
+                    {this.state.items.map((item, index) => <ToDoItem name={item.name} task={item.task} key={index}/>)}
+                    
                 </>
             )}
                 
@@ -63,6 +80,20 @@ class AddItemCard extends Component {
     
     constructor(props) {
         super(props)
+        this.state = {
+            name: '',
+            task: '',
+        }
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleTaskChange = this.handleTaskChange.bind(this);
+    }
+
+    handleNameChange(event) {
+        this.setState({name: event.target.value})
+    }
+
+    handleTaskChange(event) {
+        this.setState({task: event.target.value})
     }
 
     render() {
@@ -74,13 +105,19 @@ class AddItemCard extends Component {
                 </div>
     
               </div>
-            <form className="add-item-form">
-                <TextField id="standard-basic" label="Name" variant="outlined" />
-                <TextField id="standard-basic" label="Task" variant="outlined" />
+            <form className="add-item-form" >
+                <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
+                <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
             </form>
     
             <div className="add-item-button-box">
-                <Button className="add-item-button" variant="contained" color="primary">Add Item</Button>
+                <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
+                    let item = {
+                        name: this.state.name,
+                        task: this.state.task
+                    }
+                    this.props.addItem(item)
+                }}>Add Item</Button>
             </div>
     
           </Card>
