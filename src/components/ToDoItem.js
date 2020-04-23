@@ -26,7 +26,7 @@ class ToDoItem extends Component {
                 <div className="to-do-item-box-2">
                     <Typography>{this.props.task}</Typography>
                 </div>
-                <Checkbox className="to-do-item-checkbox" color="primary" onChange={this.handleChange.bind(this)}/>
+                <Checkbox size='medium' className="to-do-item-checkbox" color="primary" onChange={this.handleChange.bind(this)}/>
 
             </Card>
         )
