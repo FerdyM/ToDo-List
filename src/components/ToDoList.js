@@ -3,19 +3,32 @@ import { Fab, Card, TextField, Button, Typography,} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 import ToDoItem from './ToDoItem'
+import axios from 'axios'
 import '../App.css'
 
+const api = axios.create({
+    baseURL: 'http://localhost:3000/todoitems'
+})
 
 class ToDoList extends Component {
     constructor(props) {
         super(props)
         this.state = {
             addItemCardTriggered: false,
-            items: [
-
-            ]
+            items: []
         }
         this.addItem = this.addItem.bind(this)
+        this.getAllItems()
+    }
+
+    getAllItems = async () => {
+        api.get("/allitems").then(res => {
+            let allItems = res.data
+            console.log(allItems)
+            this.setState({
+                items: allItems,
+            })
+        })
     }
 
     activateAddItemCard = () => {
@@ -30,15 +43,10 @@ class ToDoList extends Component {
         })
     }
 
-    addItem(item) {
+    addItem = async (item) => {
         if (item.name !== '' && item.task !== '') {
-            let items = this.state.items
-            console.log(items)
-            items.push(item)
-            console.log(items)
-            this.setState({
-                items: items,
-            })
+            await api.post("/create", {item})
+            this.getAllItems()
         }
         this.deActivateAddItemCard()
     }
