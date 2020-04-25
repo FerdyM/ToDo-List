@@ -17,4 +17,18 @@ router.post("/create", async (req, res) => {
         res.send("success")
     })
 })
+
+router.delete("/delete/:id", async (req, res) => {
+    console.log(req.params.id)
+    ToDoItem.findByIdAndRemove(req.params.id, (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('success')
+            res.status(200)
+        }
+    })
+})
+
+
 module.exports = router
