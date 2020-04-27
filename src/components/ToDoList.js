@@ -15,16 +15,17 @@ class ToDoList extends Component {
         super(props)
         this.state = {
             addItemCardTriggered: false,
-            items: []
+            editItemCardTriggered: false,
+            currentItem: '',
+            items: [],
         }
         this.addItem = this.addItem.bind(this)
         this.getAllItems()
     }
 
     getAllItems = async () => {
-        api.get("/allitems").then(res => {
+        await api.get("/allitems").then((res) => {
             let allItems = res.data
-            console.log(allItems)
             this.setState({
                 items: allItems,
             })
@@ -34,19 +35,44 @@ class ToDoList extends Component {
     activateAddItemCard = () => {
         this.setState({
             addItemCardTriggered: true,
+            editItemCardTriggered: false
         })
     }
 
     deActivateAddItemCard() {
         this.setState({
             addItemCardTriggered: false,
+            editItemCardTriggered: false
         })
     }
 
-    addItem = async (item) => {
-        if (item.name !== '' && item.task !== '') {
-            await api.post("/create", {item})
+    activateEditItemCard() {
+        this.setState({
+            editItemCardTriggered: true,
+            
+        })
+
+    }
+    editItem = (item) => {
+        console.log(item)
+        this.setState({
+            currentItem: item,
+        })
+        this.activateEditItemCard()
+    }
+
+    updateItem = (item) => {
+        this.deActivateAddItemCard()
+        api.post("/update/" + item.id, {item}).then(() => {
             this.getAllItems()
+        }).catch((err) => console.log(err))
+    }
+
+    addItem = (item) => {
+        if (item.name !== '' && item.task !== '') {
+            api.post("/create", {item}).then(() => {
+                this.getAllItems()
+            }).catch((err) => console.log(err))
         }
         this.deActivateAddItemCard()
     }
@@ -57,7 +83,7 @@ class ToDoList extends Component {
             
             {this.state.addItemCardTriggered ? (
                 <>
-                    <AddItemCard addItem={this.addItem}/>
+                    <AddItemCard addItem={this.addItem} currentItem={this.state.currentItem}/>
                     <div className="add-button">
                     <Fab color="primary" aria-label="add" onClick={() => this.deActivateAddItemCard()}>
                         
@@ -67,13 +93,14 @@ class ToDoList extends Component {
                 </>
             ) : (
                 <>
+                    {this.state.editItemCardTriggered ? (<EditItemCard updateItem={this.updateItem} currentItem={this.state.currentItem} />) : (<></>)}
                     <div className="add-button">
                     <Fab color="primary" aria-label="add" onClick={() => this.activateAddItemCard()}>
                         
                         <AddIcon />
                     </Fab>
                     </div>
-                    {this.state.items.map((item, index) => <ToDoItem name={item.name} task={item.task} key={index}/>)}
+                    {this.state.items.map((item, index) => <ToDoItem editItem={this.editItem} getAllItems={this.getAllItems} name={item.name} id={item._id} task={item.task} key={index} />)}
                     
                 </>
             )}
@@ -90,10 +117,11 @@ class AddItemCard extends Component {
         super(props)
         this.state = {
             name: '',
-            task: '',
+            task: ''
         }
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleTaskChange = this.handleTaskChange.bind(this);
+        
     }
 
     handleNameChange(event) {
@@ -126,6 +154,57 @@ class AddItemCard extends Component {
                     }
                     this.props.addItem(item)
                 }}>Add Item</Button>
+            </div>
+    
+          </Card>
+        );
+    }
+  }
+
+  class EditItemCard extends Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: this.props.currentItem.name,
+            task: this.props.currentItem.task,
+        }
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleTaskChange = this.handleTaskChange.bind(this);
+        
+    }
+
+    handleNameChange(event) {
+        this.setState({name: event.target.value})
+    }
+
+    handleTaskChange(event) {
+        this.setState({task: event.target.value})
+    }
+
+    render() {
+        return (
+          <Card className="add-item-card">
+              <div className="add-item-title-container">
+                <div className="add-item-title">
+                    <Typography variant="h5" >Edit To-Do Item</Typography>
+                </div>
+    
+              </div>
+            <form className="add-item-form" >
+                <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
+                <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
+            </form>
+    
+            <div className="add-item-button-box">
+                <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
+                    let item = {
+                        name: this.state.name,
+                        task: this.state.task,
+                        id: this.props.currentItem._id
+                    }
+                    this.props.updateItem(item)
+                }}>Update Item</Button>
             </div>
     
           </Card>
