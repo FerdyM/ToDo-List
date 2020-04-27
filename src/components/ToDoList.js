@@ -7,7 +7,11 @@ import axios from 'axios'
 import '../App.css'
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/todoitems'
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    baseURL: 'https://limitless-cove-69990.herokuapp.com/todoitems'
 })
 
 class ToDoList extends Component {

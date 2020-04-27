@@ -6,7 +6,11 @@ import CloseIcon from '@material-ui/icons/Close'
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/todoitems'
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    baseURL: 'https://limitless-cove-69990.herokuapp.com/todoitems'
 })
 
 class ToDoItem extends Component {
@@ -31,6 +35,7 @@ class ToDoItem extends Component {
     }
 
     deleteItem = () => {
+        this.toggleMenu()
         api.delete("/delete/" + this.props.id).then(() => {
             console.log("deleted successfully")
             this.props.getAllItems()
@@ -38,6 +43,7 @@ class ToDoItem extends Component {
     }
 
     editItem = () => {
+        this.toggleMenu()
         api.get("/edit/" + this.props.id).then((res) => {
             this.props.editItem(res.data)
         })
