@@ -18,7 +18,8 @@ class ToDoItem extends Component {
         super(props)
         this.state = {
             checked: false,
-            menu: true
+            menu: true,
+            toDoItemClass: 'to-do-item'
         }
     }
     
@@ -29,9 +30,18 @@ class ToDoItem extends Component {
     }
 
     handleChange() {
-        this.setState({
-            checked: !this.state.checked
-        })
+        if (!this.state.checked) {
+            this.setState({
+                checked: !this.state.checked,
+                toDoItemClass: 'to-do-item-done'
+            })
+        } else {
+            this.setState({
+                checked: !this.state.checked,
+                toDoItemClass: 'to-do-item'
+            })
+        }
+        
     }
 
     deleteItem = () => {
@@ -51,7 +61,7 @@ class ToDoItem extends Component {
 
     render() {
         return (
-            <Card className="to-do-item">
+            <Card className={this.state.toDoItemClass}>
 
                 <div className="to-do-item-box-1">
                     <Typography variant="h5">{this.props.name}</Typography>
