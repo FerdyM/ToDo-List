@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
-import { Card, CardContent, Checkbox, Button, ButtonGroup } from '@material-ui/core'
+import { Card, Checkbox, Button, ButtonGroup } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
-import  MoreVertIcon from '@material-ui/icons/MoreVert'
-import CloseIcon from '@material-ui/icons/Close'
+import {Close, MoreVert, DeleteOutlined, EditOutlined } from '@material-ui/icons'
 import axios from 'axios'
+import './stylesheet/ToDoItem.css'
 
 const api = axios.create({
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: 'http://localhost.com:5000/todoitems'
+    baseURL: process.env.REACT_APP_DEVSERVER
 })
 
 class ToDoItem extends Component {
@@ -61,18 +61,12 @@ class ToDoItem extends Component {
                 </div>
                 <div className="to-do-item-checkbox">
                    
-                    <Checkbox size='medium'  color="primary" onChange={this.handleChange.bind(this)}/>
-                    {this.state.menu ? 
-                        (<MoreVertIcon onClick={this.toggleMenu.bind(this)}/>) 
-                        : (
-                            <>
-                                <CloseIcon onClick={this.toggleMenu.bind(this)}/>
-                                <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                                    <Button variant="contained" color="primary" onClick={this.deleteItem}>Delete</Button>
-                                    <Button onClick={this.editItem}>Edit</Button>
-                                </ButtonGroup>
-                            </>
-                        )}
+                    <Checkbox size='medium'  className="checkbox" color="primary" onChange={this.handleChange.bind(this)}/>
+                    <div className="icon-box">
+                        <EditOutlined fontSize="small" className="edit" onClick={this.editItem}>Edit</EditOutlined>
+                        <DeleteOutlined fontSize="small" className="delete" onClick={this.deleteItem}>Delete</DeleteOutlined>
+                    </div>
+
                 </div>
             </Card>
         )

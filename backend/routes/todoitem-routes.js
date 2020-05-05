@@ -12,11 +12,10 @@ router.post("/create", async (req, res) => {
         name: req.body.item.name,
         task: req.body.item.task
     })
-    await newItem.save()
-        .then((newItem) => {
+    await newItem.save().then((newItem) => {
             console.log(`New ToDoItem created: ${newItem}`)
             res.status(200).send('success')
-        }).catch((err) => console/log(err))
+        }).catch((err) => console.log(err))
 })
 
 router.delete("/delete/:id", async (req, res) => {

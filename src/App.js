@@ -1,7 +1,9 @@
 import React from 'react';
-import Nav from './components/Nav';
-import ToDoList from './components/ToDoList'
+import Nav from './components/Nav/Nav';
+import ToDoList from './components/ToDoList/ToDoList'
 import './App.css'
+
+
 
 function App() {
   return (

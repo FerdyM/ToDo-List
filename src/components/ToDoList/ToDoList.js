@@ -2,16 +2,16 @@ import React, { Component} from 'react'
 import { Fab, Card, TextField, Button, Typography,} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
-import ToDoItem from './ToDoItem'
+import ToDoItem from '../ToDoItem/ToDoItem'
 import axios from 'axios'
-import '../App.css'
+import './stylesheet/ToDoList.css'
 
 const api = axios.create({
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: 'http://localhost.com:5000/todoitems'
+    baseURL: process.env.REACT_APP_DEVSERVER
 })
 
 class ToDoList extends Component {
@@ -24,16 +24,20 @@ class ToDoList extends Component {
             items: [],
         }
         this.addItem = this.addItem.bind(this)
+        
+    }
+
+    componentWillMount() {
         this.getAllItems()
     }
 
     getAllItems = async () => {
-        await api.get("/allitems").then((res) => {
+        await api.get("/allitems/").then((res) => {
             let allItems = res.data
             this.setState({
                 items: allItems,
             })
-        })
+        }).catch(err => console.log(err))
     }
 
     activateAddItemCard = () => {
@@ -74,7 +78,7 @@ class ToDoList extends Component {
 
     addItem = (item) => {
         if (item.name !== '' && item.task !== '') {
-            api.post("/create", {item}).then(() => {
+            api.post("/create/", {item}).then(() => {
                 this.getAllItems()
             }).catch((err) => console.log(err))
         }
@@ -139,33 +143,27 @@ class AddItemCard extends Component {
     render() {
         return (
           <Card className="add-item-card">
-              <div className="add-item-title-container">
-                <div className="add-item-title">
-                    <Typography variant="h5" >Add To-Do Item</Typography>
-                </div>
-    
-              </div>
+                <Typography variant="h5" >Add To-Do Item</Typography>
             <form className="add-item-form" >
-                <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
-                <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
-            </form>
-    
-            <div className="add-item-button-box">
-                <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
+                    <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
+                    <br></br>
+                    <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
+                    <br></br>
+                    <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
                     let item = {
                         name: this.state.name,
                         task: this.state.task
                     }
                     this.props.addItem(item)
-                }}>Add Item</Button>
-            </div>
+                    }}>Add Item</Button>
+            </form>
     
           </Card>
         );
     }
   }
 
-  class EditItemCard extends Component {
+class EditItemCard extends Component {
     
     constructor(props) {
         super(props)
@@ -197,22 +195,17 @@ class AddItemCard extends Component {
               </div>
             <form className="add-item-form" >
                 <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
+                <br></br>
                 <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
+                <br></br>
+                
             </form>
     
-            <div className="add-item-button-box">
-                <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
-                    let item = {
-                        name: this.state.name,
-                        task: this.state.task,
-                        id: this.props.currentItem._id
-                    }
-                    this.props.updateItem(item)
-                }}>Update Item</Button>
-            </div>
+                
     
           </Card>
         );
     }
-  }
+}
+
 export default ToDoList;
