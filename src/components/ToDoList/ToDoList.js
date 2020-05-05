@@ -11,7 +11,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: process.env.REACT_APP_DEVSERVER
+    baseURL: process.env.REACT_APP_APISERVER
 })
 
 class ToDoList extends Component {
@@ -143,7 +143,7 @@ class AddItemCard extends Component {
     render() {
         return (
           <Card className="add-item-card">
-                <Typography variant="h5" >Add To-Do Item</Typography>
+                <Typography variant="h4" >Add To-Do Item</Typography>
             <form className="add-item-form" >
                     <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
                     <br></br>
@@ -187,18 +187,20 @@ class EditItemCard extends Component {
     render() {
         return (
           <Card className="add-item-card">
-              <div className="add-item-title-container">
-                <div className="add-item-title">
-                    <Typography variant="h5" >Edit To-Do Item</Typography>
-                </div>
-    
-              </div>
+            <Typography variant="h4" >Edit To-Do Item</Typography>
             <form className="add-item-form" >
                 <TextField id="standard-basic" value={this.state.name} label="Name" variant="outlined" onChange={this.handleNameChange}/>
                 <br></br>
                 <TextField id="standard-basic" value={this.state.task} label="Task" variant="outlined" onChange={this.handleTaskChange}/>
                 <br></br>
-                
+                <Button className="add-item-button" variant="contained" color="primary" onClick={() => {
+                    let item = {
+                        name: this.props.currentItem.name,
+                        task: this.props.currentItem.task,
+                        id: this.props.currentItem.id,
+                    }
+                    this.props.updateItem(item)
+                    }}>Edit Item</Button>
             </form>
     
                 

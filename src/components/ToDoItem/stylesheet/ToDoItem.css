@@ -86,7 +86,7 @@
       grid-template-rows: 1fr 3fr;
 }
 
-.add-item-card h5 {
+.add-item-card h4 {
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
   grid-row: 1/2;
@@ -119,7 +119,7 @@
 }
 
 .add-item-card .add-item-button {
-  width: 100px;
+  width: 110px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
