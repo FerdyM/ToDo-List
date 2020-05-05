@@ -11,7 +11,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: 'https://limitless-cove-69990.herokuapp.com/todoitems'
+    baseURL: 'http://localhost.com:5000/todoitems'
 })
 
 class ToDoList extends Component {
