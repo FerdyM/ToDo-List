@@ -9,7 +9,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: process.env.REACT_APP_APISERVER
+    baseURL: 'https://salty-brushlands-62535.herokuapp.com/'
 })
 
 class Signup extends Component {
