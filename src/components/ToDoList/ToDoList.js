@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import ToDoItem from '../ToDoItem/ToDoItem'
 import axios from 'axios'
 import Nav from '../Nav/Nav'
+import LandingPage from '../LandingPage/LandingPage'
 import './stylesheet/ToDoList.css'
 
 const api = axios.create({
@@ -129,10 +130,7 @@ class ToDoList extends Component {
             </>
         )} else {
             return (
-                <div>
-                    <h1>Please log in</h1>
-                    <Link to="/login">Log In</Link>
-                </div>
+                <LandingPage />
             )
         }
     }

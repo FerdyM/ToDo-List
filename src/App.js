@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
-import LoginForm from './components/login-form'
-import Signup from './components/sign-up'
+import LoginForm from './components/LogIn/login-form'
+import Signup from './components/SignUp/sign-up'
 import ToDoList from './components/ToDoList/ToDoList'
-import LandingPage from './components/LandingPage'
+import LandingPage from './components/LandingPage/LandingPage'
 import axios from 'axios'
 import './App.css'
 

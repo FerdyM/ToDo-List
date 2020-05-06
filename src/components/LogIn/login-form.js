@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import {TextField, Button} from '@material-ui/core'
 import axios from 'axios'
+import '../SignUp/stylesheet/SignUp.css'
 
 class LoginForm extends Component {
     constructor() {
@@ -58,46 +60,16 @@ class LoginForm extends Component {
             )
         } else {
             return (
-                <div>
-                    <h4>Login</h4>
+                <div className="form-holder">
+                    <h4>Log In</h4>
                     <form >
-                        <div >
-                            <div >
-                                <label htmlFor="username">Username</label>
-                            </div>
-                            <div >
-                                <input 
-                                    type="text"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Username"
-                                    value={this.state.username}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
+                        <div>
+                            <TextField id="standard-basic" name="username" label="Standard" value={this.state.username} onChange={this.handleChange} />
                         </div>
                         <div>
-                            <div >
-                                <label htmlFor="password">Password: </label>
-                            </div>
-                            <div >
-                                <input
-                                    placeholder="password"
-                                    type="password"
-                                    name="password"
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
+                            <TextField id="standard-basic" name="password" label="Standard" value={this.state.password} onChange={this.handleChange} />
                         </div>
-                        <div >
-                            <div ></div>
-                            <button
-                                
-                               
-                                onClick={this.handleSubmit}
-                                type="submit">Login</button>
-                        </div>
+                        <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
                     </form>
                 </div>
             )

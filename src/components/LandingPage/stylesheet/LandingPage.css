@@ -1,0 +1,29 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.container h2 {
+  width: 90%;
+  font-size: 44px;
+}
+
+.container .link-container a {
+  padding: 20px;
+}
+/*# sourceMappingURL=LandingPage.css.map */
