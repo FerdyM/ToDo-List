@@ -1,16 +1,17 @@
 const router = require("express").Router()
 const ToDoItem = require("../models/ToDoItem")
 
-router.get("/allitems", async (req, res) => {
-    var allItems = await ToDoItem.find({})
+router.post("/allitems", async (req, res) => {
+    console.log(req.body.username)
+    var allItems = await ToDoItem.find({username: req.body.username})
     res.send(allItems)
 })
 
 router.post("/create", async (req, res) => {
-    console.log(req.body.item)
     let newItem = new ToDoItem({
-        name: req.body.item.name,
-        task: req.body.item.task
+        name: req.body.newItem.name,
+        task: req.body.newItem.task,
+        username: req.body.newItem.username
     })
     await newItem.save().then((newItem) => {
             console.log(`New ToDoItem created: ${newItem}`)

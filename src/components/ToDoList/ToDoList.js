@@ -38,7 +38,7 @@ class ToDoList extends Component {
     }
 
     getAllItems = async () => {
-        await api.get("/allitems/").then((res) => {
+        await api.post("/allitems/", {username: this.props.username}).then((res) => {
             let allItems = res.data
             this.setState({
                 items: allItems,
@@ -83,8 +83,13 @@ class ToDoList extends Component {
     }
 
     addItem = (item) => {
+        let newItem = {
+            name: item.name,
+            task: item.task,
+            username: this.props.username
+        }
         if (item.name !== '' && item.task !== '') {
-            api.post("/create/", {item}).then(() => {
+            api.post("/create/", {newItem}).then(() => {
                 this.getAllItems()
             }).catch((err) => console.log(err))
         }
