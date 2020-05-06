@@ -7,7 +7,13 @@ import LandingPage from './components/LandingPage/LandingPage'
 import axios from 'axios'
 import './App.css'
 
-
+const api = axios.create({
+  withCredentials: true,
+  headers: {
+      'Content-Type': 'application/json'
+  },
+  baseURL: process.env.REACT_APP_DEVSERVER
+})
 
 class App extends Component {
   constructor() {
@@ -34,7 +40,7 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get("/").then(response => {
+    api.get("/").then(response => {
       console.log("get user response")
       console.log(response.data)
       if (response.data.user) {

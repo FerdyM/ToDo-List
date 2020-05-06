@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080
 
 const cors = require("cors")
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: process.env.REACT_HOST,
     credentials: true,
 };
   

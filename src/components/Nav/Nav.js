@@ -3,17 +3,19 @@ import { AppBar, Typography, Toolbar, Button } from '@material-ui/core'
 import axios from 'axios'
 import './stylesheet/Nav.css'
 
+const api = axios.create({
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    baseURL: process.env.REACT_APP_DEVSERVER
+})
+
 class Nav extends Component {
-    // constructor(props) {
-    //     super(props)
-
-    //     this.updateUser = this.updateUser.bind(this)
-    // }
-
 
     logout() {
         console.log('goonk')
-        axios.post('/user/logout').then(() => {
+        api.post('/user/logout').then(() => {
             let userObject = {
                 loggedIn: false,
                 username: null

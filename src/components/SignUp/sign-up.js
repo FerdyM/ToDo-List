@@ -4,6 +4,14 @@ import {TextField, Button} from '@material-ui/core'
 import axios from 'axios'
 import './stylesheet/SignUp.css'
 
+const api = axios.create({
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    baseURL: process.env.REACT_APP_DEVSERVER
+})
+
 class Signup extends Component {
 	constructor() {
 		super()
@@ -26,7 +34,7 @@ class Signup extends Component {
 		event.preventDefault()
 
 		//request to server to add a new username/password
-		axios.post('/user/', {
+		api.post('/user/', {
 			username: this.state.username,
 			password: this.state.password
 		})

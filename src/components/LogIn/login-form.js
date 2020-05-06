@@ -4,6 +4,14 @@ import {TextField, Button} from '@material-ui/core'
 import axios from 'axios'
 import '../SignUp/stylesheet/SignUp.css'
 
+const api = axios.create({
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    baseURL: process.env.REACT_APP_DEVSERVER
+})
+
 class LoginForm extends Component {
     constructor() {
         super()
@@ -26,9 +34,8 @@ class LoginForm extends Component {
     handleSubmit(event) {
         event.preventDefault()
         console.log('handleSubmit')
-
-        axios
-            .post('/user/login', {
+        
+            api.post('/user/login', {
                 username: this.state.username,
                 password: this.state.password
             })
