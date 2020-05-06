@@ -27,7 +27,10 @@ class App extends Component {
   }
 
   updateUser(userObject) {
-    this.setState(userObject)
+    this.setState({
+      loggedIn: userObject.loggedIn,
+      username: userObject.username
+    })
   }
 
   getUser() {
@@ -58,7 +61,7 @@ class App extends Component {
             <Route  
               exact
               path="/todolist"
-              render={() => <ToDoList username={this.state.username} loggedIn={this.state.loggedIn} />}
+              render={() => <ToDoList username={this.state.username} loggedIn={this.state.loggedIn} updateUser={this.updateUser}/>}
             />
             <Route 
               exact

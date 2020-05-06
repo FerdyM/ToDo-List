@@ -26,11 +26,14 @@ class ToDoList extends Component {
             items: [],
         }
         this.addItem = this.addItem.bind(this)
-        
     }
 
     componentWillMount() {
         this.getAllItems()
+    }
+
+    componentDidMount() {
+        console.log(this.props.username)
     }
 
     getAllItems = async () => {
@@ -95,7 +98,7 @@ class ToDoList extends Component {
             
             {this.state.addItemCardTriggered ? (
                 <>
-                    <Nav/>
+                    <Nav username={this.props.username} loggedIn={this.props.loggedIn} updateUser={this.props.updateUser}/>
                     <div>
                         <AddItemCard addItem={this.addItem} currentItem={this.state.currentItem}/>
                         <div className="add-button">
@@ -108,7 +111,7 @@ class ToDoList extends Component {
                 </>
             ) : (
                 <>
-                    <Nav />
+                    <Nav username={this.props.username} loggedIn={this.props.loggedIn} updateUser={this.props.updateUser}/>
                     <div>
                         {this.state.editItemCardTriggered ? (<EditItemCard updateItem={this.updateItem} currentItem={this.state.currentItem} />) : (<></>)}
                         <div className="add-button">
