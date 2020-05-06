@@ -71,10 +71,10 @@ class LoginForm extends Component {
                     <h4>Log In</h4>
                     <form >
                         <div>
-                            <TextField id="standard-basic" name="username" label="Standard" value={this.state.username} onChange={this.handleChange} />
+                            <TextField id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
                         </div>
                         <div>
-                            <TextField id="standard-basic" name="password" label="Standard" value={this.state.password} onChange={this.handleChange} />
+                            <TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
                         </div>
                         <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
                     </form>
