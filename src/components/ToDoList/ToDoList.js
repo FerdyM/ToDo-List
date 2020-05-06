@@ -1,9 +1,11 @@
 import React, { Component} from 'react'
+import {Link} from 'react-router-dom'
 import { Fab, Card, TextField, Button, Typography,} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 import ToDoItem from '../ToDoItem/ToDoItem'
 import axios from 'axios'
+import Nav from '../Nav/Nav'
 import './stylesheet/ToDoList.css'
 
 const api = axios.create({
@@ -11,7 +13,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json'
     },
-    baseURL: process.env.REACT_APP_APISERVER
+    baseURL: process.env.REACT_APP_DEVSERVER
 })
 
 class ToDoList extends Component {
@@ -86,35 +88,50 @@ class ToDoList extends Component {
     }
 
     render() {
-        return (
+
+        if (this.props.loggedIn) {
+            return (
             <>
             
             {this.state.addItemCardTriggered ? (
                 <>
-                    <AddItemCard addItem={this.addItem} currentItem={this.state.currentItem}/>
-                    <div className="add-button">
-                    <Fab color="primary" aria-label="add" onClick={() => this.deActivateAddItemCard()}>
-                        
-                        <CloseIcon />
-                    </Fab>
+                    <Nav/>
+                    <div>
+                        <AddItemCard addItem={this.addItem} currentItem={this.state.currentItem}/>
+                        <div className="add-button">
+                        <Fab color="primary" aria-label="add" onClick={() => this.deActivateAddItemCard()}>
+                            
+                            <CloseIcon />
+                        </Fab>
+                        </div>
                     </div>
                 </>
             ) : (
                 <>
-                    {this.state.editItemCardTriggered ? (<EditItemCard updateItem={this.updateItem} currentItem={this.state.currentItem} />) : (<></>)}
-                    <div className="add-button">
-                    <Fab color="primary" aria-label="add" onClick={() => this.activateAddItemCard()}>
+                    <Nav />
+                    <div>
+                        {this.state.editItemCardTriggered ? (<EditItemCard updateItem={this.updateItem} currentItem={this.state.currentItem} />) : (<></>)}
+                        <div className="add-button">
+                        <Fab color="primary" aria-label="add" onClick={() => this.activateAddItemCard()}>
+                            
+                            <AddIcon />
+                        </Fab>
+                        </div>
+                        {this.state.items.map((item, index) => <ToDoItem editItem={this.editItem} getAllItems={this.getAllItems} name={item.name} id={item._id} task={item.task} key={index} />)}
                         
-                        <AddIcon />
-                    </Fab>
                     </div>
-                    {this.state.items.map((item, index) => <ToDoItem editItem={this.editItem} getAllItems={this.getAllItems} name={item.name} id={item._id} task={item.task} key={index} />)}
-                    
                 </>
             )}
                 
             </>
-        )
+        )} else {
+            return (
+                <div>
+                    <h1>Please log in</h1>
+                    <Link to="/login">Log In</Link>
+                </div>
+            )
+        }
     }
 } 
 
