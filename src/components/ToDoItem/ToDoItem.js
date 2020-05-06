@@ -46,7 +46,7 @@ class ToDoItem extends Component {
 
     deleteItem = () => {
         this.toggleMenu()
-        api.delete("/delete/" + this.props.id).then(() => {
+        api.delete("/todoitems/delete/" + this.props.id).then(() => {
             console.log("deleted successfully")
             this.props.getAllItems()
         })
@@ -54,7 +54,7 @@ class ToDoItem extends Component {
 
     editItem = () => {
         this.toggleMenu()
-        api.get("/edit/" + this.props.id).then((res) => {
+        api.get("/todoitems/edit/" + this.props.id).then((res) => {
             this.props.editItem(res.data)
         })
     }

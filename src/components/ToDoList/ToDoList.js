@@ -38,7 +38,7 @@ class ToDoList extends Component {
     }
 
     getAllItems = async () => {
-        await api.post("/allitems/", {username: this.props.username}).then((res) => {
+        await api.post("/todoitems/allitems/", {username: this.props.username}).then((res) => {
             let allItems = res.data
             this.setState({
                 items: allItems,
@@ -77,7 +77,7 @@ class ToDoList extends Component {
 
     updateItem = (item) => {
         this.deActivateAddItemCard()
-        api.post("/update/" + item.id, {item}).then(() => {
+        api.post("/todoitems/update/" + item.id, {item}).then(() => {
             this.getAllItems()
         }).catch((err) => console.log(err))
     }
@@ -89,7 +89,7 @@ class ToDoList extends Component {
             username: this.props.username
         }
         if (item.name !== '' && item.task !== '') {
-            api.post("/create/", {newItem}).then(() => {
+            api.post("/todoitems/create/", {newItem}).then(() => {
                 this.getAllItems()
             }).catch((err) => console.log(err))
         }
