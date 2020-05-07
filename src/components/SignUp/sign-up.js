@@ -18,14 +18,16 @@ class Signup extends Component {
 		this.state = {
 			username: '',
 			password: '',
+			confirmPassword: '',
 			usernameError: false,
 			passwordError: false,
-			confirmPassword: ''
+			confirmPasswordError: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleUsernameChange = this.handleUsernameChange.bind(this)
 		this.handlePasswordChange = this.handlePasswordChange.bind(this)
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
 	}
 
 	handleChange(event) {
@@ -72,29 +74,49 @@ class Signup extends Component {
         }, 10);
     }
 
+	handleConfirmPasswordChange(event) {
+		this.handleChange(event)
+		setTimeout(() => {
+			if (this.state.confirmPassword.length === 0) {
+				this.setState({
+					confirmPasswordError: false
+				})
+			} else if (this.state.confirmPassword !== this.state.password) {
+				this.setState({
+					confirmPasswordError: true
+				})
+			} else if (this.state.confirmPassword === this.state.password) {
+				this.setState({
+					confirmPasswordError: false
+				})
+			}
+		}, 10);
+	}
+
 	handleSubmit(event) {
 		console.log('sign-up handleSubmit, username: ')
 		console.log(this.state.username)
 		event.preventDefault()
-
-		//request to server to add a new username/password
-		api.post('/user/', {
-			username: this.state.username,
-			password: this.state.password
-		})
-			.then(response => {
-				console.log(response)
-				if (!response.data.errmsg) {
-					console.log('successful signup')
-					window.location = '/login'
-				} else {
-					console.log('username already taken')
-				}
-			}).catch(error => {
-				console.log('signup error: ')
-				console.log(error)
-
+		if (this.state.password === this.state.confirmPassword) {
+			api.post('/user/', {
+				username: this.state.username,
+				password: this.state.password
 			})
+				.then(response => {
+					console.log(response)
+					if (!response.data.errmsg) {
+						console.log('successful signup')
+						window.location = '/login'
+					} else {
+						console.log('username already taken')
+					}
+				}).catch(error => {
+					console.log('signup error: ')
+					console.log(error)
+	
+				})
+		}
+		//request to server to add a new username/password
 	}
 
 
@@ -115,6 +137,13 @@ render() {
 						<TextField error helperText="Password must be atleast 6 characters" id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />  
 					) : (
 						<TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+					)}
+				</div>
+				<div>
+					{this.state.confirmPasswordError ? (
+						<TextField error helperText="Passwords must match" id="standard-basic" name="confirmPassword" label="Confirm Password" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />  
+					) : (
+						<TextField id="standard-basic" name="confirmPassword" label="Confirm Password" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
 					)}
 				</div>
 				<Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
