@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {TextField, Button} from '@material-ui/core'
 import axios from 'axios'
 import './stylesheet/SignUp.css'
@@ -13,8 +13,8 @@ const api = axios.create({
 })
 
 class Signup extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			username: '',
 			password: '',
@@ -106,14 +106,13 @@ class Signup extends Component {
 					console.log(response)
 					if (!response.data.errmsg) {
 						console.log('successful signup')
-						window.location = '/login'
+						this.props.history.push('/login')
 					} else {
 						console.log('username already taken')
 					}
 				}).catch(error => {
-					console.log('signup error: ')
-					console.log(error)
-	
+					// console.log('signup error: ')
+					// console.log(error)
 				})
 		}
 		//request to server to add a new username/password

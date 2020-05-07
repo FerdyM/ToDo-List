@@ -88,10 +88,7 @@ class LoginForm extends Component {
                         loggedIn: true,
                         username: response.data.username
                     })
-                    // update the state to redirect to home
-                    this.setState({
-                        redirectTo: '/todolist'
-                    })
+                    this.props.history.push('/todolist')
                 }
             }).catch(error => {
                 console.log('login error: ')

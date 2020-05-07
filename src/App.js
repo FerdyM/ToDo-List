@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import LoginForm from './components/LogIn/login-form'
 import Signup from './components/SignUp/sign-up'
 import ToDoList from './components/ToDoList/ToDoList'
 import LandingPage from './components/LandingPage/LandingPage'
 import axios from 'axios'
 import './App.css'
+
+
 
 const api = axios.create({
   withCredentials: true,
@@ -16,8 +18,8 @@ const api = axios.create({
 })
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       loggedIn: false,
       username: null
@@ -62,7 +64,6 @@ class App extends Component {
 
   render() {
       return (
-        <BrowserRouter>
           <div className="App">
             <Route  
               exact
@@ -82,10 +83,9 @@ class App extends Component {
             <Route
               exact
               path="/signup"
-              render={() => <Signup/>}
+              render={() => <Signup {...this.props} />}
             />
           </div>
-        </BrowserRouter>
       );
   }
 }
