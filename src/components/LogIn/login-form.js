@@ -18,17 +18,57 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
+            usernameError: false,
+            passwordError: false,
             redirectTo: null
         }
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-  
+        this.handleUsernameChange = this.handleUsernameChange.bind(this)
+        this.handlePasswordChange = this.handlePasswordChange.bind(this)
     }
 
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    handleUsernameChange(event) {
+        this.handleChange(event)
+        setTimeout(() => {
+            if (this.state.username.length === 0) {
+                this.setState({
+                    usernameError: false
+                })
+            } else if (this.state.username.length < 6) {
+                this.setState({
+                    usernameError: true
+                })
+            } else {
+                this.setState({
+                    usernameError: false
+                })
+            }
+        }, 10); 
+    }
+
+    handlePasswordChange(event) {
+        this.handleChange(event)
+        setTimeout(() => {         
+            if (this.state.password === '') {
+                this.setState({
+                    passwordError: false
+                })
+            } else if (this.state.password.length < 6) {
+                this.setState({
+                    passwordError: true
+                })
+            } else {
+                this.setState({
+                    passwordError: false
+                })
+            }
+        }, 10);
     }
 
     handleSubmit(event) {
@@ -71,10 +111,18 @@ class LoginForm extends Component {
                     <h4>Log In</h4>
                     <form >
                         <div>
-                            <TextField id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
+                            {this.state.usernameError ? (
+                                <TextField error helperText="Username must be atleast 6 characters" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
+                            ) : (
+                                <TextField color="green" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
+                            )}
                         </div>
                         <div>
-                            <TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
+                            {this.state.passwordError ? (
+                                <TextField error helperText="Password must be atleast 6 characters" id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />  
+                            ) : (
+                                <TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            )}
                         </div>
                         <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
                     </form>
