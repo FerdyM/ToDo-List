@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import {TextField, Button} from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import axios from 'axios'
 import '../SignUp/stylesheet/SignUp.css'
 
@@ -98,34 +99,32 @@ class LoginForm extends Component {
     }
 
     render() {
-        if (this.state.redirectTo) {
-            return (
-                <Redirect to={{ pathname: this.state.redirectTo }}/>
-            )
-        } else {
-            return (
-                <div className="form-holder">
-                    <h4>Log In</h4>
-                    <form >
-                        <div>
-                            {this.state.usernameError ? (
-                                <TextField error helperText="Username must be atleast 6 characters" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
-                            ) : (
-                                <TextField id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
-                            )}
-                        </div>
-                        <div>
-                            {this.state.passwordError ? (
-                                <TextField error helperText="Password must be atleast 6 characters" id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />  
-                            ) : (
-                                <TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />
-                            )}
-                        </div>
-                        <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
-                    </form>
-                </div>
-            )
-        }
+        return (
+            <div className="form-holder">
+                <Link to="/" className="back-link">
+                    <ArrowBackIcon color="primary"/>
+                </Link>
+                <h4>Log In</h4>
+                <form >
+                    <div>
+                        {this.state.usernameError ? (
+                            <TextField error helperText="Username must be atleast 6 characters" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
+                        ) : (
+                            <TextField id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
+                        )}
+                    </div>
+                    <div>
+                        {this.state.passwordError ? (
+                            <TextField error helperText="Password must be atleast 6 characters" id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />  
+                        ) : (
+                            <TextField id="standard-basic" name="password" label="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+                        )}
+                    </div>
+                    <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
+                </form>
+            </div>
+        )
+        
     }
 }
 

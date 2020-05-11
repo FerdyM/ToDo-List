@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {TextField, Button} from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import axios from 'axios'
 import './stylesheet/SignUp.css'
 
@@ -122,6 +123,9 @@ class Signup extends Component {
 render() {
 	return (
 		<div className="form-holder">
+			<Link to="/" className="back-link">
+                    <ArrowBackIcon color="primary"/>
+            </Link>
 			<h4>Sign up</h4>
 			<form >
 				<div>

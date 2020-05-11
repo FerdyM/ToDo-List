@@ -17,6 +17,13 @@
           align-items: center;
 }
 
+.form-holder .back-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+}
+
 .form-holder h4 {
   margin: 0;
   font-size: 48px;
