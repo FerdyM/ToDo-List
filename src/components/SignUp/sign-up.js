@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import {TextField, Button} from '@material-ui/core'
+import {TextField, Button, CircularProgress} from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import axios from 'axios'
@@ -23,7 +23,9 @@ class Signup extends Component {
 			confirmPassword: '',
 			usernameError: false,
 			passwordError: false,
-			confirmPasswordError: false
+			confirmPasswordError: false,
+			signUpError: false,
+			loading: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -108,6 +110,9 @@ class Signup extends Component {
 		console.log('sign-up handleSubmit, username: ')
 		console.log(this.state.username)
 		event.preventDefault()
+		this.setState({
+			loading: true,
+		})
 		if (this.state.password === this.state.confirmPassword) {
 			api.post('/user/', {
 				username: this.state.username,
@@ -125,7 +130,8 @@ class Signup extends Component {
 					console.log('signup error: ')
 					console.log(error)
 					this.setState({
-						signUpError: true
+						signUpError: true,
+						loading: false
 					})
 					this.handleSignUpError()
 				})
@@ -166,6 +172,13 @@ render() {
 				<Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
 				{this.state.signUpError ? (
 					<Alert severity="error">There was an Error creating your account!</Alert>
+				) : (
+					<></>
+				)}
+				{this.state.loading ? (
+					<div className="loading">
+						<CircularProgress color="primary"/>
+					</div>
 				) : (
 					<></>
 				)}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import {TextField, Button} from '@material-ui/core'
+import {TextField, Button, CircularProgress} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import axios from 'axios'
 import '../SignUp/stylesheet/SignUp.css'
@@ -21,11 +22,14 @@ class LoginForm extends Component {
             password: '',
             usernameError: false,
             passwordError: false,
-            redirectTo: null
+            redirectTo: null,
+            loading: false,
+            signUpError: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleUsernameChange = this.handleUsernameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleSignUpError = this.handleSignUpError.bind(this)
     }
 
     handleChange(event) {
@@ -72,8 +76,18 @@ class LoginForm extends Component {
         }, 10);
     }
 
+    handleSignUpError() {
+		setTimeout(() => {
+			this.setState({
+				signUpError: false
+			})
+		}, 3000);
+	}
+
+
     handleSubmit(event) {
         event.preventDefault()
+        this.setState({loading: true})
         console.log('handleSubmit')
         
             api.post('/user/login', {
@@ -94,7 +108,8 @@ class LoginForm extends Component {
             }).catch(error => {
                 console.log('login error: ')
                 console.log(error);
-                
+                this.setState({loading: false, signUpError: true})
+                this.handleSignUpError()
             })
     }
 
@@ -121,6 +136,18 @@ class LoginForm extends Component {
                         )}
                     </div>
                     <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
+                    {this.state.signUpError ? (
+					<Alert severity="error">There was an Error logging in to your account!</Alert>
+                    ) : (
+                        <></>
+                    )}
+                    {this.state.loading ? (
+					<div className="loading">
+						<CircularProgress color="primary"/>
+					</div>
+                    ) : (
+                        <></>
+                    )}
                 </form>
             </div>
         )

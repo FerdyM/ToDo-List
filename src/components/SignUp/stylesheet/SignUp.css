@@ -24,6 +24,11 @@
   margin: 10px;
 }
 
+.form-holder .loading {
+  position: absolute;
+  margin: auto auto;
+}
+
 .form-holder h4 {
   margin: 0;
   font-size: 48px;
