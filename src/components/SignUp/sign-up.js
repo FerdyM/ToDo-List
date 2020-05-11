@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {TextField, Button} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import axios from 'axios'
 import './stylesheet/SignUp.css'
@@ -29,6 +30,7 @@ class Signup extends Component {
 		this.handleUsernameChange = this.handleUsernameChange.bind(this)
 		this.handlePasswordChange = this.handlePasswordChange.bind(this)
 		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
+		this.handleSignUpError = this.handleSignUpError.bind(this)
 	}
 
 	handleChange(event) {
@@ -94,6 +96,14 @@ class Signup extends Component {
 		}, 10);
 	}
 
+	handleSignUpError() {
+		setTimeout(() => {
+			this.setState({
+				signUpError: false
+			})
+		}, 3000);
+	}
+
 	handleSubmit(event) {
 		console.log('sign-up handleSubmit, username: ')
 		console.log(this.state.username)
@@ -112,8 +122,12 @@ class Signup extends Component {
 						console.log('username already taken')
 					}
 				}).catch(error => {
-					// console.log('signup error: ')
-					// console.log(error)
+					console.log('signup error: ')
+					console.log(error)
+					this.setState({
+						signUpError: true
+					})
+					this.handleSignUpError()
 				})
 		}
 		//request to server to add a new username/password
@@ -150,6 +164,11 @@ render() {
 					)}
 				</div>
 				<Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
+				{this.state.signUpError ? (
+					<Alert severity="error">There was an Error creating your account!</Alert>
+				) : (
+					<></>
+				)}
 			</form>
 		</div>
 
