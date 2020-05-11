@@ -78,7 +78,7 @@ class App extends Component {
             <Route
               exact
               path="/login"
-              render={() => <LoginForm updateUser={this.updateUser}/>}
+              render={() => <LoginForm {...this.props} updateUser={this.updateUser}/>}
             />
             <Route
               exact

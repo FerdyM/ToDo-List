@@ -111,7 +111,7 @@ class LoginForm extends Component {
                             {this.state.usernameError ? (
                                 <TextField error helperText="Username must be atleast 6 characters" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
                             ) : (
-                                <TextField color="green" id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
+                                <TextField id="standard-basic" name="username" label="Username" value={this.state.username} onChange={this.handleUsernameChange} />
                             )}
                         </div>
                         <div>
