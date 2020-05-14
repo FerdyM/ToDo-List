@@ -140,7 +140,7 @@ class LoginForm extends Component {
                         )}
                     </div>
                     <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
-                    <a href="http://localhost:8080/auth/google"><Button  variant="contained" color="primary">Log In With Google</Button></a>
+                    {/* <a href="http://localhost:8080/auth/google"><Button  variant="contained" color="primary">Log In With Google</Button></a> */}
                     {this.state.signUpError ? (
 					<Alert severity="error">There was an Error logging in to your account!</Alert>
                     ) : (
