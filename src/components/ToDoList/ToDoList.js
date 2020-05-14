@@ -89,8 +89,8 @@ class ToDoList extends Component {
             username: this.props.username
         }
         if (item.name !== '' && item.task !== '') {
-            api.post("/todoitems/create/", {newItem}).then(() => {
-                this.getAllItems()
+            api.post("/todoitems/create/", {newItem}).then(async () => {
+                await this.getAllItems()
             }).catch((err) => console.log(err))
         }
         this.deActivateAddItemCard()
