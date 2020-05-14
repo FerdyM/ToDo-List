@@ -7,11 +7,11 @@ import axios from 'axios'
 import '../SignUp/stylesheet/SignUp.css'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    withCredentials: true,
     headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-    }
+        'Content-Type': 'application/json'
+    },
+    baseURL: 'https://salty-brushlands-62535.herokuapp.com/'
 })
 
 class LoginForm extends Component {
@@ -140,7 +140,7 @@ class LoginForm extends Component {
                         )}
                     </div>
                     <Button onClick={this.handleSubmit} variant="contained" color="primary">Submit</Button>
-                    {/* <a href="http://localhost:8080/auth/google"><Button  variant="contained" color="primary">Log In With Google</Button></a> */}
+                    <a href="http://localhost:8080/auth/google"><Button  variant="contained" color="primary">Log In With Google</Button></a>
                     {this.state.signUpError ? (
 					<Alert severity="error">There was an Error logging in to your account!</Alert>
                     ) : (
