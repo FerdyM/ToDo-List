@@ -119,7 +119,6 @@ class Signup extends Component {
 				password: this.state.password
 			})
 				.then(response => {
-					console.log(response)
 					if (!response.data.errmsg) {
 						console.log('successful signup')
 						this.props.history.push('/login')

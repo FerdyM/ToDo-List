@@ -6,7 +6,8 @@ import './stylesheet/Nav.css'
 const api = axios.create({
     withCredentials: true,
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        
     },
     baseURL: 'https://salty-brushlands-62535.herokuapp.com/'
 })
@@ -14,7 +15,6 @@ const api = axios.create({
 class Nav extends Component {
 
     logout() {
-        console.log('goonk')
         api.post('/user/logout').then(() => {
             let userObject = {
                 loggedIn: false,

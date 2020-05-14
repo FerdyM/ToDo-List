@@ -77,8 +77,8 @@ class ToDoList extends Component {
 
     updateItem = (item) => {
         this.deActivateAddItemCard()
-        api.post("/todoitems/update/" + item.id, {item}).then(() => {
-            this.getAllItems()
+        api.post("/todoitems/update/" + item.id, {item}).then(async () => {
+            await this.getAllItems()
         }).catch((err) => console.log(err))
     }
 

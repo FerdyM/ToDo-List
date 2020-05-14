@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ToDo-List 
 
-## Available Scripts
+This project is literal pure innovation... haha just kidding this is just a basic ToDoList Application, it's a pretty nice ToDoList however!
 
-In the project directory, you can run:
+This project is just an easy way for me to show skills in RESTful api's, MERN, and super basic authentication and authorization. Im not a great designer but in my opinion it turned out alright thanks to material-ui!
 
-### `yarn start`
+Feel free to reach out with any feedback it's more than appreciated!
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Gif of ToDo-List App]()
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Features
 
-### `yarn test`
+- Sign Up
+- Log In
+- Create ToDo Items
+- Delete ToDo Items
+- Edit ToDo Items
+- Update ToDo Items
+- Tick Off ToDo Items
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Roadmap
 
-### `yarn build`
+#### 04/2020
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Created basic ToDoList(no backend so the ToDoItems didnt save)
+- Added form for adding ToDoItems
+- Created a RESTful ToDoList API(no users yet so everyone shares the same ToDoList... oops)
+- Added update form ToDoList Items can now be edited
+- Deployed ToDoList
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+#### 05/2020
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Refactored styling better for all devices
+- Added users and authentication with passportJS
+- Added logout button and functionality
+- Each user now has their own unique ToDoList
+- Added input validation to Login, Sign-Up and ToDoList forms
+- Added success/error popups for Login and Sign-Up
 
-### `yarn eject`
+#### Future
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Google/Github Login
